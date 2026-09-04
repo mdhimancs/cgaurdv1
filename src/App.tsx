@@ -1,4 +1,4 @@
-import { useState, FormEvent } from 'react';
+import { useState, useMemo, FormEvent } from 'react';
 import { 
   LayoutDashboard, 
   ShieldAlert, 
@@ -25,7 +25,10 @@ import {
   X,
   Presentation,
   Zap,
-  Radio
+  Radio,
+  ArrowUpDown,
+  ArrowUp,
+  ArrowDown
 } from 'lucide-react';
 import { 
   INITIAL_AUDIT_ISSUES, 
@@ -151,6 +154,66 @@ export default function App() {
     showToast('Technology debt record removed.');
   };
 
+  // Sorting state for Business Unit table
+  const [buSortField, setBuSortField] = useState<'businessUnit' | 'securityScore' | 'mttrDays' | 'slaComplianceRate' | 'openAuditCount'>('securityScore');
+  const [buSortOrder, setBuSortOrder] = useState<'asc' | 'desc'>('desc');
+
+  // Sorting state for Audit table
+  const [auditSortField, setAuditSortField] = useState<'title' | 'framework' | 'severity' | 'businessUnit' | 'targetDate' | 'status'>('severity');
+  const [auditSortOrder, setAuditSortOrder] = useState<'asc' | 'desc'>('desc');
+
+  // Sorting state for Tech Debt table
+  const [debtSortField, setDebtSortField] = useState<'systemName' | 'category' | 'businessUnit' | 'riskScore' | 'annualMaintenanceCost' | 'targetRetirementDate'>('riskScore');
+  const [debtSortOrder, setDebtSortOrder] = useState<'asc' | 'desc'>('desc');
+
+  const handleBuSort = (field: 'businessUnit' | 'securityScore' | 'mttrDays' | 'slaComplianceRate' | 'openAuditCount') => {
+    if (buSortField === field) {
+      setBuSortOrder(prev => prev === 'asc' ? 'desc' : 'asc');
+    } else {
+      setBuSortField(field);
+      setBuSortOrder(field === 'businessUnit' ? 'asc' : 'desc');
+    }
+  };
+
+  const handleAuditSort = (field: 'title' | 'framework' | 'severity' | 'businessUnit' | 'targetDate' | 'status') => {
+    if (auditSortField === field) {
+      setAuditSortOrder(prev => prev === 'asc' ? 'desc' : 'asc');
+    } else {
+      setAuditSortField(field);
+      setAuditSortOrder(field === 'severity' ? 'desc' : 'asc');
+    }
+  };
+
+  const handleDebtSort = (field: 'systemName' | 'category' | 'businessUnit' | 'riskScore' | 'annualMaintenanceCost' | 'targetRetirementDate') => {
+    if (debtSortField === field) {
+      setDebtSortOrder(prev => prev === 'asc' ? 'desc' : 'asc');
+    } else {
+      setDebtSortField(field);
+      setDebtSortOrder(field === 'riskScore' ? 'desc' : 'asc');
+    }
+  };
+
+  const renderSortIcon = (active: boolean, order: 'asc' | 'desc') => {
+    if (!active) {
+      return <ArrowUpDown className="w-3 h-3 text-slate-400 opacity-50 group-hover:opacity-100 transition-opacity" />;
+    }
+    return order === 'asc' 
+      ? <ArrowUp className="w-3 h-3 text-indigo-600 font-bold" />
+      : <ArrowDown className="w-3 h-3 text-indigo-600 font-bold" />;
+  };
+
+  const sortedBuMetrics = useMemo(() => {
+    return [...BU_PERFORMANCE_METRICS].sort((a, b) => {
+      let comparison = 0;
+      if (buSortField === 'businessUnit') {
+        comparison = a.businessUnit.localeCompare(b.businessUnit);
+      } else {
+        comparison = (a[buSortField] ?? 0) - (b[buSortField] ?? 0);
+      }
+      return buSortOrder === 'asc' ? comparison : -comparison;
+    });
+  }, [buSortField, buSortOrder]);
+
   const filteredAuditIssues = auditIssues.filter(item => {
     const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
                           item.businessUnit.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -158,6 +221,47 @@ export default function App() {
     const matchesSeverity = severityFilter === 'ALL' || item.severity === severityFilter;
     return matchesSearch && matchesSeverity;
   });
+
+  const sortedAuditIssues = useMemo(() => {
+    return [...filteredAuditIssues].sort((a, b) => {
+      let comparison = 0;
+      if (auditSortField === 'title') {
+        comparison = a.title.localeCompare(b.title);
+      } else if (auditSortField === 'framework') {
+        comparison = a.framework.localeCompare(b.framework);
+      } else if (auditSortField === 'severity') {
+        const severityWeight: Record<string, number> = { 'Critical': 4, 'High': 3, 'Medium': 2, 'Low': 1 };
+        comparison = (severityWeight[a.severity] || 0) - (severityWeight[b.severity] || 0);
+      } else if (auditSortField === 'businessUnit') {
+        comparison = a.businessUnit.localeCompare(b.businessUnit);
+      } else if (auditSortField === 'targetDate') {
+        comparison = new Date(a.targetDate).getTime() - new Date(b.targetDate).getTime();
+      } else if (auditSortField === 'status') {
+        comparison = a.status.localeCompare(b.status);
+      }
+      return auditSortOrder === 'asc' ? comparison : -comparison;
+    });
+  }, [filteredAuditIssues, auditSortField, auditSortOrder]);
+
+  const sortedTechDebtItems = useMemo(() => {
+    return [...techDebtItems].sort((a, b) => {
+      let comparison = 0;
+      if (debtSortField === 'systemName') {
+        comparison = a.systemName.localeCompare(b.systemName);
+      } else if (debtSortField === 'category') {
+        comparison = a.category.localeCompare(b.category);
+      } else if (debtSortField === 'businessUnit') {
+        comparison = a.businessUnit.localeCompare(b.businessUnit);
+      } else if (debtSortField === 'riskScore') {
+        comparison = a.riskScore - b.riskScore;
+      } else if (debtSortField === 'annualMaintenanceCost') {
+        comparison = a.annualMaintenanceCost - b.annualMaintenanceCost;
+      } else if (debtSortField === 'targetRetirementDate') {
+        comparison = new Date(a.targetRetirementDate).getTime() - new Date(b.targetRetirementDate).getTime();
+      }
+      return debtSortOrder === 'asc' ? comparison : -comparison;
+    });
+  }, [techDebtItems, debtSortField, debtSortOrder]);
 
   const renderContent = () => {
     switch (activeView) {
@@ -266,15 +370,60 @@ export default function App() {
                 <table className="w-full text-left text-xs table-auto">
                   <thead className="text-[10px] text-slate-400 uppercase font-bold border-b border-slate-100 pb-2">
                     <tr>
-                      <th className="pb-2 break-words">Business Unit & Lead</th>
-                      <th className="pb-2 text-center break-words">Score</th>
-                      <th className="pb-2 text-center break-words">MTTR</th>
-                      <th className="pb-2 text-center break-words">SLA Compliance</th>
-                      <th className="pb-2 text-right break-words">Open Audits</th>
+                      <th 
+                        onClick={() => handleBuSort('businessUnit')}
+                        className="pb-2 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                        title="Sort by Business Unit & Lead"
+                      >
+                        <div className="flex items-center gap-1">
+                          <span>Business Unit & Lead</span>
+                          {renderSortIcon(buSortField === 'businessUnit', buSortOrder)}
+                        </div>
+                      </th>
+                      <th 
+                        onClick={() => handleBuSort('securityScore')}
+                        className="pb-2 text-center break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                        title="Sort by Security Score"
+                      >
+                        <div className="flex items-center justify-center gap-1">
+                          <span>Score</span>
+                          {renderSortIcon(buSortField === 'securityScore', buSortOrder)}
+                        </div>
+                      </th>
+                      <th 
+                        onClick={() => handleBuSort('mttrDays')}
+                        className="pb-2 text-center break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                        title="Sort by MTTR Days"
+                      >
+                        <div className="flex items-center justify-center gap-1">
+                          <span>MTTR</span>
+                          {renderSortIcon(buSortField === 'mttrDays', buSortOrder)}
+                        </div>
+                      </th>
+                      <th 
+                        onClick={() => handleBuSort('slaComplianceRate')}
+                        className="pb-2 text-center break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                        title="Sort by SLA Compliance Rate"
+                      >
+                        <div className="flex items-center justify-center gap-1">
+                          <span>SLA Compliance</span>
+                          {renderSortIcon(buSortField === 'slaComplianceRate', buSortOrder)}
+                        </div>
+                      </th>
+                      <th 
+                        onClick={() => handleBuSort('openAuditCount')}
+                        className="pb-2 text-right break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                        title="Sort by Open Audits Count"
+                      >
+                        <div className="flex items-center justify-end gap-1">
+                          <span>Open Audits</span>
+                          {renderSortIcon(buSortField === 'openAuditCount', buSortOrder)}
+                        </div>
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100">
-                    {BU_PERFORMANCE_METRICS.map(bu => (
+                    {sortedBuMetrics.map(bu => (
                       <tr key={bu.businessUnit} className="hover:bg-slate-50/70 transition">
                         <td className="py-2.5 break-words">
                           <p className="font-bold text-slate-800 text-xs break-words">{bu.businessUnit}</p>
@@ -426,17 +575,71 @@ export default function App() {
               <table className="w-full text-left text-xs table-auto">
                 <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 font-bold uppercase text-[10px] tracking-wider">
                   <tr>
-                    <th className="py-2 px-3 break-words">ID / Title</th>
-                    <th className="py-2 px-2.5 break-words">Framework</th>
-                    <th className="py-2 px-2.5 break-words">Severity</th>
-                    <th className="py-2 px-2.5 break-words">Business Unit & Lead</th>
-                    <th className="py-2 px-2.5 break-words">Target SLA Date</th>
-                    <th className="py-2 px-2.5 break-words">Status</th>
+                    <th 
+                      onClick={() => handleAuditSort('title')}
+                      className="py-2 px-3 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                      title="Sort by ID or Title"
+                    >
+                      <div className="flex items-center gap-1">
+                        <span>ID / Title</span>
+                        {renderSortIcon(auditSortField === 'title', auditSortOrder)}
+                      </div>
+                    </th>
+                    <th 
+                      onClick={() => handleAuditSort('framework')}
+                      className="py-2 px-2.5 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                      title="Sort by Compliance Framework"
+                    >
+                      <div className="flex items-center gap-1">
+                        <span>Framework</span>
+                        {renderSortIcon(auditSortField === 'framework', auditSortOrder)}
+                      </div>
+                    </th>
+                    <th 
+                      onClick={() => handleAuditSort('severity')}
+                      className="py-2 px-2.5 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                      title="Sort by Finding Severity"
+                    >
+                      <div className="flex items-center gap-1">
+                        <span>Severity</span>
+                        {renderSortIcon(auditSortField === 'severity', auditSortOrder)}
+                      </div>
+                    </th>
+                    <th 
+                      onClick={() => handleAuditSort('businessUnit')}
+                      className="py-2 px-2.5 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                      title="Sort by Business Unit & Lead"
+                    >
+                      <div className="flex items-center gap-1">
+                        <span>Business Unit & Lead</span>
+                        {renderSortIcon(auditSortField === 'businessUnit', auditSortOrder)}
+                      </div>
+                    </th>
+                    <th 
+                      onClick={() => handleAuditSort('targetDate')}
+                      className="py-2 px-2.5 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                      title="Sort by Target SLA Date"
+                    >
+                      <div className="flex items-center gap-1">
+                        <span>Target SLA Date</span>
+                        {renderSortIcon(auditSortField === 'targetDate', auditSortOrder)}
+                      </div>
+                    </th>
+                    <th 
+                      onClick={() => handleAuditSort('status')}
+                      className="py-2 px-2.5 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                      title="Sort by Status"
+                    >
+                      <div className="flex items-center gap-1">
+                        <span>Status</span>
+                        {renderSortIcon(auditSortField === 'status', auditSortOrder)}
+                      </div>
+                    </th>
                     <th className="py-2 px-2.5 text-right break-words">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
-                  {filteredAuditIssues.map(item => (
+                  {sortedAuditIssues.map(item => (
                     <tr key={item.id} className="hover:bg-slate-50/70 transition">
                       <td className="py-2.5 px-3 max-w-sm break-words">
                         <span className="font-mono text-[10px] text-indigo-600 font-bold break-all">{item.id}</span>
@@ -504,17 +707,71 @@ export default function App() {
               <table className="w-full text-left text-xs table-auto">
                 <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 font-bold uppercase text-[10px] tracking-wider">
                   <tr>
-                    <th className="py-2 px-3 break-words">System / Asset Name</th>
-                    <th className="py-2 px-2.5 break-words">Category</th>
-                    <th className="py-2 px-2.5 break-words">Business Unit</th>
-                    <th className="py-2 px-2.5 text-center break-words">Risk Score</th>
-                    <th className="py-2 px-2.5 break-words">Annual Maint. Cost</th>
-                    <th className="py-2 px-2.5 break-words">Target Retirement</th>
+                    <th 
+                      onClick={() => handleDebtSort('systemName')}
+                      className="py-2 px-3 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                      title="Sort by System / Asset Name"
+                    >
+                      <div className="flex items-center gap-1">
+                        <span>System / Asset Name</span>
+                        {renderSortIcon(debtSortField === 'systemName', debtSortOrder)}
+                      </div>
+                    </th>
+                    <th 
+                      onClick={() => handleDebtSort('category')}
+                      className="py-2 px-2.5 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                      title="Sort by Category"
+                    >
+                      <div className="flex items-center gap-1">
+                        <span>Category</span>
+                        {renderSortIcon(debtSortField === 'category', debtSortOrder)}
+                      </div>
+                    </th>
+                    <th 
+                      onClick={() => handleDebtSort('businessUnit')}
+                      className="py-2 px-2.5 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                      title="Sort by Business Unit"
+                    >
+                      <div className="flex items-center gap-1">
+                        <span>Business Unit</span>
+                        {renderSortIcon(debtSortField === 'businessUnit', debtSortOrder)}
+                      </div>
+                    </th>
+                    <th 
+                      onClick={() => handleDebtSort('riskScore')}
+                      className="py-2 px-2.5 text-center break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                      title="Sort by Risk Score"
+                    >
+                      <div className="flex items-center justify-center gap-1">
+                        <span>Risk Score</span>
+                        {renderSortIcon(debtSortField === 'riskScore', debtSortOrder)}
+                      </div>
+                    </th>
+                    <th 
+                      onClick={() => handleDebtSort('annualMaintenanceCost')}
+                      className="py-2 px-2.5 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                      title="Sort by Annual Maintenance Cost"
+                    >
+                      <div className="flex items-center gap-1">
+                        <span>Annual Maint. Cost</span>
+                        {renderSortIcon(debtSortField === 'annualMaintenanceCost', debtSortOrder)}
+                      </div>
+                    </th>
+                    <th 
+                      onClick={() => handleDebtSort('targetRetirementDate')}
+                      className="py-2 px-2.5 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                      title="Sort by Target Retirement Date"
+                    >
+                      <div className="flex items-center gap-1">
+                        <span>Target Retirement</span>
+                        {renderSortIcon(debtSortField === 'targetRetirementDate', debtSortOrder)}
+                      </div>
+                    </th>
                     <th className="py-2 px-2.5 text-right break-words">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
-                  {techDebtItems.map(item => (
+                  {sortedTechDebtItems.map(item => (
                     <tr key={item.id} className="hover:bg-slate-50/70 transition">
                       <td className="py-2.5 px-3 break-words">
                         <span className="font-mono text-[10px] text-indigo-600 font-bold break-all">{item.id}</span>
@@ -886,7 +1143,7 @@ export default function App() {
         <main className="flex-1 flex flex-col h-full overflow-hidden">
           <header className="h-12 bg-white border-b border-slate-200 flex items-center justify-between px-4 shrink-0">
             <div>
-              <h1 className="text-sm sm:text-base font-black text-slate-900">SVP Global Security & Governance Control Center</h1>
+              <h1 className="text-sm sm:text-base font-black text-slate-900">Global Security & Governance Control Center</h1>
               <p className="text-[10px] text-slate-500 hidden sm:block">Real-time enterprise posture • Live telemetry from DefectDojo, Wiz, & Wazuh • Last Sync: 2m ago</p>
             </div>
             <div className="flex items-center gap-2">
