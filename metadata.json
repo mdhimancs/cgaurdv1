@@ -1,0 +1,8 @@
+{
+  "name": "CyberGuard - Executive Cybersecurity & Tech Debt Dashboard",
+  "description": "SVP-level cybersecurity governance dashboard for tracking security posture, open audit issues, legacy tech debt, and firm-wide training completeness with BU reporting.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
