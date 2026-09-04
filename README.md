@@ -225,8 +225,17 @@ Runs `tsc --noEmit` to validate all imports, types, and JSX syntax across the co
 
 ---
 
-### 6. 🚨 Deployment Troubleshooting & Best Practices
-- **Port Ingress Binding:** Cloud Run container routing requires the server to bind explicitly to `0.0.0.0` and port `3000`. Do not change the hardcoded port configuration.
+### 6. 🌐 Static Hosting & GitHub Pages Deployment
+The project is configured with `base: './'` in `vite.config.ts`, generating relative asset links suitable for subpath static hosting:
+- **GitHub Pages Workflow:** Included in `.github/workflows/depoly.yml` using `actions/deploy-pages@v4` with artifact upload path `./dist`.
+- **Repository Settings:** Ensure **Settings > Pages > Source** is set to **GitHub Actions**.
+- **Asset Resolution:** Relative paths (`./assets/...`) resolve without 404s on subpaths (e.g., `https://<username>.github.io/<repo-name>/`).
+
+---
+
+### 7. 🚨 Deployment Troubleshooting & Best Practices
+- **Blank Screen on GitHub Pages:** Resolved by setting `base: './'` in `vite.config.ts` so JavaScript and CSS bundles are loaded relative to the repository subpath rather than domain root.
+- **Port Ingress Binding (Cloud Run / Docker):** Cloud Run container routing requires the server to bind explicitly to `0.0.0.0` and port `3000`. Do not change the hardcoded port configuration.
 - **Client Routing / 404 Resolution:** The Express server includes fallback wildcard handling (`app.get('*')`) to ensure deep client URLs (such as direct domain tabs) always resolve to `/dist/index.html`.
 - **Environment Variables:** Document all non-sensitive configuration in `.env.example`. Secret tokens (e.g., API keys) must be injected into server environment variables and accessed strictly in server-side routes (`process.env`).
 
