@@ -68,6 +68,19 @@ export default function App() {
   const [showBoardroomModal, setShowBoardroomModal] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
+  // Form states
+  const [newAuditTitle, setNewAuditTitle] = useState('');
+  const [newAuditFramework, setNewAuditFramework] = useState<any>('SOX');
+  const [newAuditSev, setNewAuditSev] = useState<any>('Critical');
+  const [newAuditBu, setNewAuditBu] = useState('Global Markets');
+  const [newAuditDesc, setNewAuditDesc] = useState('');
+
+  const [newDebtSystem, setNewDebtSystem] = useState('');
+  const [newDebtCategory, setNewDebtCategory] = useState<any>('Legacy OS');
+  const [newDebtBu, setNewDebtBu] = useState('Consumer Tech');
+  const [newDebtRisk, setNewDebtRisk] = useState('85');
+  const [newDebtCost, setNewDebtCost] = useState('150000');
+
   const showToast = (msg: string) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(null), 3500);
@@ -137,19 +150,6 @@ export default function App() {
     setTechDebtItems(techDebtItems.filter(item => item.id !== id));
     showToast('Technology debt record removed.');
   };
-
-  // Form states
-  const [newAuditTitle, setNewAuditTitle] = useState('');
-  const [newAuditFramework, setNewAuditFramework] = useState<any>('SOX');
-  const [newAuditSev, setNewAuditSev] = useState<any>('Critical');
-  const [newAuditBu, setNewAuditBu] = useState('Global Markets');
-  const [newAuditDesc, setNewAuditDesc] = useState('');
-
-  const [newDebtSystem, setNewDebtSystem] = useState('');
-  const [newDebtCategory, setNewDebtCategory] = useState<any>('Legacy OS');
-  const [newDebtBu, setNewDebtBu] = useState('Consumer Tech');
-  const [newDebtRisk, setNewDebtRisk] = useState('85');
-  const [newDebtCost, setNewDebtCost] = useState('150000');
 
   const filteredAuditIssues = auditIssues.filter(item => {
     const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) || 

@@ -131,8 +131,9 @@
 ```text
 /
 ├── README.md                      # Complete system feature documentation (This file)
+├── server.ts                      # Full-stack Express server with Vite dev middleware & SPA static fallback
 ├── metadata.json                  # Application metadata & platform permissions
-├── package.json                   # Dependencies and build scripts
+├── package.json                   # Dependencies and production build scripts
 ├── index.html                     # HTML5 entry point
 ├── tsconfig.json                  # TypeScript compiler configuration
 ├── vite.config.ts                 # Vite bundler configuration
@@ -165,21 +166,69 @@
 
 ---
 
-## ⚡ Getting Started
+## ⚡ Development, Build & Deployment Guide
 
-1. **Install Dependencies:**
-   ```bash
-   npm install
-   ```
-2. **Run Local Development Server:**
-   ```bash
-   npm run dev
-   ```
-   The dev server will launch on `http://localhost:3000`.
-3. **Build for Production:**
-   ```bash
-   npm run build
-   ```
+### 1. 🛠️ Local Development Server
+To launch the hot-reloading development server powered by Express + Vite middleware:
+```bash
+npm install
+npm run dev
+```
+- **Local URL:** `http://localhost:3000` (or `http://0.0.0.0:3000`)
+- **Backend API:** Express server boots with active Vite HMR integration for instant client updates.
+
+---
+
+### 2. 🏗️ Production Build & Packaging
+The deployment pipeline uses Vite for frontend asset bundling and `esbuild` to compile a standalone Node.js server:
+```bash
+npm run build
+```
+**What this command does:**
+1. Executes `vite build` to generate static production assets in the `/dist` directory.
+2. Runs `esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs` to produce a single, self-contained CommonJS server bundle with externalized dependencies.
+
+---
+
+### 3. 🚀 Production Start (Cloud Run / Container Deployment)
+To start the production server in containerized environments (Google Cloud Run, Docker, Kubernetes):
+```bash
+npm run start
+```
+- Executes `node dist/server.cjs`.
+- Binds to host `0.0.0.0` on port `3000`.
+- Serves static assets from `/dist` and provides wildcard SPA client-side fallback routing (`*`).
+
+---
+
+### 4. 🩺 Container Health Check & Monitoring
+Cloud Run, Kubernetes, and reverse-proxy load balancers can poll the dedicated health endpoint:
+- **Endpoint:** `GET /api/health`
+- **Response Format:**
+  ```json
+  {
+    "status": "ok",
+    "service": "CyberGuard Platform",
+    "timestamp": "2026-09-04T21:49:00.000Z"
+  }
+  ```
+- Returns HTTP `200 OK` for container readiness and liveness probes.
+
+---
+
+### 5. 🔍 Code Verification & Linting
+Ensure type safety and adherence to TypeScript rules before deployment:
+```bash
+npm run lint
+```
+Runs `tsc --noEmit` to validate all imports, types, and JSX syntax across the codebase.
+
+---
+
+### 6. 🚨 Deployment Troubleshooting & Best Practices
+- **Port Ingress Binding:** Cloud Run container routing requires the server to bind explicitly to `0.0.0.0` and port `3000`. Do not change the hardcoded port configuration.
+- **Client Routing / 404 Resolution:** The Express server includes fallback wildcard handling (`app.get('*')`) to ensure deep client URLs (such as direct domain tabs) always resolve to `/dist/index.html`.
+- **Environment Variables:** Document all non-sensitive configuration in `.env.example`. Secret tokens (e.g., API keys) must be injected into server environment variables and accessed strictly in server-side routes (`process.env`).
 
 ---
 *Maintained by the Enterprise Information Security & Risk Governance Architecture Team.*
