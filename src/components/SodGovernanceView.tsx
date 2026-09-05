@@ -96,7 +96,7 @@ interface MakerCheckerAudit {
 
 const INITIAL_SOD_CONFLICTS: SodConflictItem[] = [
   {
-    id: 'SOD-2024-001',
+    id: 'SOD-2026-001',
     ruleCode: 'SOD-FIN-01',
     title: 'SAP AP Invoice Creation & Direct Payment Release',
     systemName: 'SAP S/4HANA ERP (Finance)',
@@ -108,8 +108,8 @@ const INITIAL_SOD_CONFLICTS: SodConflictItem[] = [
     businessUnit: 'Global Markets',
     severity: 'Critical',
     riskScore: 96,
-    identifiedDate: '2024-08-06',
-    targetDate: '2024-08-16',
+    identifiedDate: '2026-08-06',
+    targetDate: '2026-08-16',
     daysOpen: 18,
     timeSinceOpenText: '18 days (8d Overdue)',
     isOverdue: true,
@@ -122,7 +122,7 @@ const INITIAL_SOD_CONFLICTS: SodConflictItem[] = [
     recommendedAction: 'Immediately strip SAP_FI_AP_PAYMENT_RELEASE and assign to dedicated controller.'
   },
   {
-    id: 'SOD-2024-002',
+    id: 'SOD-2026-002',
     ruleCode: 'SOD-AWS-04',
     title: 'AWS Cloud Admin & CloudTrail Audit Log Deleter',
     systemName: 'AWS Multi-Account Core Infrastructure',
@@ -134,8 +134,8 @@ const INITIAL_SOD_CONFLICTS: SodConflictItem[] = [
     businessUnit: 'Consumer Tech',
     severity: 'Critical',
     riskScore: 92,
-    identifiedDate: '2024-08-10',
-    targetDate: '2024-08-20',
+    identifiedDate: '2026-08-10',
+    targetDate: '2026-08-20',
     daysOpen: 14,
     timeSinceOpenText: '14 days (4d Overdue)',
     isOverdue: true,
@@ -148,7 +148,7 @@ const INITIAL_SOD_CONFLICTS: SodConflictItem[] = [
     recommendedAction: 'Enforce AWS Organizations SCP denying CloudTrail stopLogging/deleteTrail for all dev IAM roles.'
   },
   {
-    id: 'SOD-2024-003',
+    id: 'SOD-2026-003',
     ruleCode: 'SOD-BNK-02',
     title: 'Core Banking Account Provisioning & Credit Limit Overrider',
     systemName: 'Finacle Core Banking System',
@@ -160,8 +160,8 @@ const INITIAL_SOD_CONFLICTS: SodConflictItem[] = [
     businessUnit: 'Retail Banking',
     severity: 'High',
     riskScore: 88,
-    identifiedDate: '2024-08-14',
-    targetDate: '2024-08-28',
+    identifiedDate: '2026-08-14',
+    targetDate: '2026-08-28',
     daysOpen: 10,
     timeSinceOpenText: '10 days open',
     isOverdue: false,
@@ -174,7 +174,7 @@ const INITIAL_SOD_CONFLICTS: SodConflictItem[] = [
     recommendedAction: 'Segregate maker-checker roles into separate Okta groups and enforce 4-eyes approval.'
   },
   {
-    id: 'SOD-2024-004',
+    id: 'SOD-2026-004',
     ruleCode: 'SOD-GIT-09',
     title: 'GitHub Monorepo Admin & Production Release Deployer',
     systemName: 'GitHub Enterprise & ArgoCD CI/CD',
@@ -186,8 +186,8 @@ const INITIAL_SOD_CONFLICTS: SodConflictItem[] = [
     businessUnit: 'Wealth & Asset Mgmt',
     severity: 'High',
     riskScore: 84,
-    identifiedDate: '2024-08-17',
-    targetDate: '2024-08-31',
+    identifiedDate: '2026-08-17',
+    targetDate: '2026-08-31',
     daysOpen: 7,
     timeSinceOpenText: '7 days open',
     isOverdue: false,
@@ -200,7 +200,7 @@ const INITIAL_SOD_CONFLICTS: SodConflictItem[] = [
     recommendedAction: 'Remove direct K8s deploy signing key from developer identity; force automated ArgoCD pipeline only.'
   },
   {
-    id: 'SOD-2024-005',
+    id: 'SOD-2026-005',
     ruleCode: 'SOD-HR-03',
     title: 'Workday HR Compensation Adjuster & Corporate Payroll Disburser',
     systemName: 'Workday HCM & ADP Payroll Gateway',
@@ -212,15 +212,15 @@ const INITIAL_SOD_CONFLICTS: SodConflictItem[] = [
     businessUnit: 'Corp Functions',
     severity: 'Medium',
     riskScore: 72,
-    identifiedDate: '2024-08-19',
-    targetDate: '2024-09-02',
+    identifiedDate: '2026-08-19',
+    targetDate: '2026-09-02',
     daysOpen: 5,
     timeSinceOpenText: '5 days open',
     isOverdue: false,
     owner: 'Sophie Martin (IAM Integration Specialist)',
     accountable: 'David Sterling (Head of HR Operations)',
     status: 'Under Review',
-    auditImpact: 'Internal Audit Finding IA-2024-88: Potential for ghost employee creation and unauthorized salary adjustment.',
+    auditImpact: 'Internal Audit Finding IA-2026-88: Potential for ghost employee creation and unauthorized salary adjustment.',
     fraudRisk: 'Moderate',
     lastActivityWithBothRoles: '4 days ago (Bi-weekly payroll run processed)',
     recommendedAction: 'Transfer payroll release entitlement to Corporate Finance VP and implement quarterly re-certification.'
@@ -306,7 +306,7 @@ const CERTIFICATION_CAMPAIGNS: CertificationCampaign[] = [
     certifiedCount: 1380,
     revokedCount: 40,
     completionRate: 97.2,
-    dueDate: '2024-09-15',
+    dueDate: '2026-09-15',
     status: 'On Track'
   },
   {
@@ -318,7 +318,7 @@ const CERTIFICATION_CAMPAIGNS: CertificationCampaign[] = [
     certifiedCount: 1980,
     revokedCount: 170,
     completionRate: 92.1,
-    dueDate: '2024-09-08',
+    dueDate: '2026-09-08',
     status: 'At Risk'
   },
   {
@@ -330,7 +330,7 @@ const CERTIFICATION_CAMPAIGNS: CertificationCampaign[] = [
     certifiedCount: 3350,
     revokedCount: 50,
     completionRate: 98.5,
-    dueDate: '2024-09-30',
+    dueDate: '2026-09-30',
     status: 'On Track'
   },
   {
@@ -342,14 +342,14 @@ const CERTIFICATION_CAMPAIGNS: CertificationCampaign[] = [
     certifiedCount: 890,
     revokedCount: 210,
     completionRate: 80.9,
-    dueDate: '2024-08-25',
+    dueDate: '2026-08-25',
     status: 'Overdue'
   }
 ];
 
 const MAKER_CHECKER_LOGS: MakerCheckerAudit[] = [
   {
-    id: 'MC-2024-991',
+    id: 'MC-2026-991',
     operation: 'SWIFT MT103 Wire Disbursement ($4,250,000)',
     system: 'Finacle SWIFT Gateway',
     makerUser: 'j.thompson@globalbank.corp',
@@ -359,7 +359,7 @@ const MAKER_CHECKER_LOGS: MakerCheckerAudit[] = [
     status: 'Approved & Dual-Signed'
   },
   {
-    id: 'MC-2024-992',
+    id: 'MC-2026-992',
     operation: 'AWS IAM Policy Modification (Attach AdministratorAccess)',
     system: 'AWS Identity Center (SSO)',
     makerUser: 'k.thorne@consumertech.bank',
@@ -369,7 +369,7 @@ const MAKER_CHECKER_LOGS: MakerCheckerAudit[] = [
     status: 'Rejected / Blocked'
   },
   {
-    id: 'MC-2024-993',
+    id: 'MC-2026-993',
     operation: 'Vendor Master Directory Bank Account Change',
     system: 'SAP S/4HANA ERP',
     makerUser: 'a.miller@corp.bank.corp',

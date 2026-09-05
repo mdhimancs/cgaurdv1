@@ -52,6 +52,7 @@ import { SodGovernanceView } from './components/SodGovernanceView';
 import { OpenSourceMeshView } from './components/OpenSourceMeshView';
 import { LiveTelemetryTicker } from './components/LiveTelemetryTicker';
 import { PostureDetailView } from './components/PostureDetailView';
+import { HistoricalTrendsSection } from './components/HistoricalTrendsSection';
 import { TrainingView } from './components/TrainingView';
 import { ZtnaView } from './components/ZtnaView';
 import { NhiSecretsView } from './components/NhiSecretsView';
@@ -97,14 +98,14 @@ export default function App() {
     e.preventDefault();
     if (!newAuditTitle.trim()) return;
     const newItem: AuditIssue = {
-      id: `AUD-2024-${Math.floor(160 + Math.random() * 40)}`,
+      id: `AUD-2026-${Math.floor(160 + Math.random() * 40)}`,
       title: newAuditTitle,
       framework: newAuditFramework,
       severity: newAuditSev,
       businessUnit: newAuditBu,
       buLead: 'Assigned BU Lead',
       identifiedDate: new Date().toISOString().split('T')[0],
-      targetDate: '2024-11-30',
+      targetDate: '2026-11-30',
       daysOpen: 5,
       isOverdue: false,
       status: 'Open',
@@ -134,10 +135,10 @@ export default function App() {
       category: newDebtCategory,
       businessUnit: newDebtBu,
       riskScore: parseInt(newDebtRisk) || 80,
-      eolDate: '2024-12-31',
+      eolDate: '2026-12-31',
       status: 'Critical EOL',
       replacementProject: 'Cloud Modernization Initiative',
-      targetRetirementDate: '2025-06-30',
+      targetRetirementDate: '2027-06-30',
       affectedEndpoints: 45,
       annualMaintenanceCost: parseInt(newDebtCost) || 120000,
       estModernizationBudget: 300000,
@@ -273,12 +274,12 @@ export default function App() {
               <div className="bg-white border border-slate-200/90 rounded-xl p-3.5 shadow-2xs flex flex-col justify-between">
                 <div>
                   <div className="flex justify-between items-center">
-                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Overall Security Score</span>
-                    <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">+2.4% MoM</span>
+                    <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wider">Overall Security Score</span>
+                    <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-200/80 px-1.5 py-0.5 rounded">+2.4% MoM</span>
                   </div>
                   <div className="mt-2 flex items-baseline gap-1.5">
                     <span className="text-3xl font-black text-slate-900">{EXECUTIVE_INSIGHTS.overallScore}</span>
-                    <span className="text-xs text-slate-400">/ 100 Target: 90.0</span>
+                    <span className="text-xs text-slate-600 font-medium">/ 100 Target: 90.0</span>
                   </div>
                 </div>
                 <div className="w-full bg-slate-100 h-1.5 rounded-full mt-2.5 overflow-hidden">
@@ -289,55 +290,55 @@ export default function App() {
               <div className="bg-white border border-slate-200/90 rounded-xl p-3.5 shadow-2xs flex flex-col justify-between">
                 <div>
                   <div className="flex justify-between items-center">
-                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Critical Audit Findings</span>
-                    <span className="text-[10px] font-bold text-rose-700 bg-rose-50 px-1.5 py-0.5 rounded">Action Req</span>
+                    <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wider">Critical Audit Findings</span>
+                    <span className="text-[10px] font-bold text-rose-800 bg-rose-50 border border-rose-200/80 px-1.5 py-0.5 rounded">Action Req</span>
                   </div>
                   <div className="mt-2 flex items-baseline gap-1.5">
                     <span className="text-3xl font-black text-rose-600">{auditIssues.filter(i => i.severity === 'Critical').length}</span>
-                    <span className="text-xs text-slate-400">Open items</span>
+                    <span className="text-xs text-slate-600 font-medium">Open items</span>
                   </div>
                 </div>
-                <p className="text-[10px] text-slate-500 mt-2.5">SOX & PCI-DSS primary drivers</p>
+                <p className="text-xs text-slate-600 font-medium mt-2.5">SOX & PCI-DSS primary drivers</p>
               </div>
 
               <div className="bg-white border border-slate-200/90 rounded-xl p-3.5 shadow-2xs flex flex-col justify-between">
                 <div>
                   <div className="flex justify-between items-center">
-                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Firm-Wide MTTR</span>
-                    <span className="text-[10px] font-semibold text-indigo-700 bg-indigo-50 px-1.5 py-0.5 rounded">14% Faster</span>
+                    <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wider">Firm-Wide MTTR</span>
+                    <span className="text-[10px] font-bold text-indigo-800 bg-indigo-50 border border-indigo-200/80 px-1.5 py-0.5 rounded">14% Faster</span>
                   </div>
                   <div className="mt-2 flex items-baseline gap-1.5">
                     <span className="text-3xl font-black text-slate-900">{VAM_POSTURE.averageMttrDays}</span>
-                    <span className="text-xs text-slate-400">Days avg (&lt;14d SLA)</span>
+                    <span className="text-xs text-slate-600 font-medium">Days avg (&lt;14d SLA)</span>
                   </div>
                 </div>
-                <p className="text-[10px] text-slate-500 mt-2.5">Beating target SLA thresholds</p>
+                <p className="text-xs text-slate-600 font-medium mt-2.5">Beating target SLA thresholds</p>
               </div>
 
               <div className="bg-white border border-slate-200/90 rounded-xl p-3.5 shadow-2xs flex flex-col justify-between">
                 <div>
                   <div className="flex justify-between items-center">
-                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Legacy OS Exposure</span>
-                    <span className="text-[10px] font-bold text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded">EOL Risk</span>
+                    <span className="text-[11px] font-bold text-slate-600 uppercase tracking-wider">Legacy OS Exposure</span>
+                    <span className="text-[10px] font-bold text-amber-800 bg-amber-50 border border-amber-200/80 px-1.5 py-0.5 rounded">EOL Risk</span>
                   </div>
                   <div className="mt-2 flex items-baseline gap-1.5">
                     <span className="text-3xl font-black text-slate-900">{EXECUTIVE_INSIGHTS.legacyOsShare}%</span>
-                    <span className="text-xs text-slate-400">Target: &lt;10%</span>
+                    <span className="text-xs text-slate-600 font-medium">Target: &lt;10%</span>
                   </div>
                 </div>
-                <p className="text-[10px] text-slate-500 mt-2.5">240 Windows 2012 VMs remaining</p>
+                <p className="text-xs text-slate-600 font-medium mt-2.5">240 Windows 2012 VMs remaining</p>
               </div>
             </div>
 
             {/* Open Source Banner & Quick Action */}
-            <div className="col-span-12 bg-gradient-to-r from-indigo-950 via-slate-900 to-slate-900 text-white rounded-xl p-3.5 shadow-xs flex flex-col md:flex-row items-center justify-between gap-3">
-              <div className="space-y-0.5">
-                <div className="flex items-center gap-2">
-                  <span className="bg-indigo-500 text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Open-Source Telemetry Mesh</span>
-                  <span className="text-[10px] text-indigo-200">DefectDojo • Wazuh XDR • OpenVAS • Cloud Custodian • BloodHound</span>
+            <div className="col-span-12 bg-gradient-to-r from-indigo-950 via-slate-900 to-slate-900 text-white rounded-xl p-4 shadow-sm flex flex-col md:flex-row items-center justify-between gap-3">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="bg-indigo-500 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Open-Source Telemetry Mesh</span>
+                  <span className="text-xs text-indigo-200 font-medium">DefectDojo • Wazuh XDR • OpenVAS • Cloud Custodian • BloodHound</span>
                 </div>
-                <h3 className="text-sm font-bold text-white">Unified Security Governance & Attack Surface Telemetry</h3>
-                <p className="text-[11px] text-indigo-100/80 max-w-2xl">
+                <h3 className="text-base font-bold text-white">Unified Security Governance & Attack Surface Telemetry</h3>
+                <p className="text-xs text-slate-300 max-w-2xl leading-relaxed">
                   Real-time aggregation from 12 posture collectors, continuous audit observation tracking, and automated remediation playbooks.
                 </p>
               </div>
@@ -357,22 +358,25 @@ export default function App() {
               </div>
             </div>
 
+            {/* Historical Trends Section (6-Month Recharts Visualization) */}
+            <HistoricalTrendsSection />
+
             {/* Business Unit Performance Table (Compact) */}
-            <div className="col-span-12 lg:col-span-8 bg-white border border-slate-200/90 rounded-xl p-3.5 shadow-2xs">
+            <div className="col-span-12 lg:col-span-8 bg-white border border-slate-200/90 rounded-xl p-4 shadow-2xs">
               <div className="flex justify-between items-center mb-3">
                 <div>
                   <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider">Business Unit Accountability & Posture</h3>
-                  <p className="text-[11px] text-slate-500">Tracking risk scores, MTTR days, and SLA compliance across operating units.</p>
+                  <p className="text-xs text-slate-600">Tracking risk scores, MTTR days, and SLA compliance across operating units.</p>
                 </div>
               </div>
 
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs table-auto">
-                  <thead className="text-[10px] text-slate-400 uppercase font-bold border-b border-slate-100 pb-2">
+                  <thead className="text-[11px] text-slate-700 uppercase font-bold border-b border-slate-200 pb-2">
                     <tr>
                       <th 
                         onClick={() => handleBuSort('businessUnit')}
-                        className="pb-2 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                        className="pb-2.5 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
                         title="Sort by Business Unit & Lead"
                       >
                         <div className="flex items-center gap-1">
@@ -382,7 +386,7 @@ export default function App() {
                       </th>
                       <th 
                         onClick={() => handleBuSort('securityScore')}
-                        className="pb-2 text-center break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                        className="pb-2.5 text-center break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
                         title="Sort by Security Score"
                       >
                         <div className="flex items-center justify-center gap-1">
@@ -392,7 +396,7 @@ export default function App() {
                       </th>
                       <th 
                         onClick={() => handleBuSort('mttrDays')}
-                        className="pb-2 text-center break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                        className="pb-2.5 text-center break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
                         title="Sort by MTTR Days"
                       >
                         <div className="flex items-center justify-center gap-1">
@@ -402,7 +406,7 @@ export default function App() {
                       </th>
                       <th 
                         onClick={() => handleBuSort('slaComplianceRate')}
-                        className="pb-2 text-center break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                        className="pb-2.5 text-center break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
                         title="Sort by SLA Compliance Rate"
                       >
                         <div className="flex items-center justify-center gap-1">
@@ -412,7 +416,7 @@ export default function App() {
                       </th>
                       <th 
                         onClick={() => handleBuSort('openAuditCount')}
-                        className="pb-2 text-right break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                        className="pb-2.5 text-right break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
                         title="Sort by Open Audits Count"
                       >
                         <div className="flex items-center justify-end gap-1">
@@ -426,20 +430,20 @@ export default function App() {
                     {sortedBuMetrics.map(bu => (
                       <tr key={bu.businessUnit} className="hover:bg-slate-50/70 transition">
                         <td className="py-2.5 break-words">
-                          <p className="font-bold text-slate-800 text-xs break-words">{bu.businessUnit}</p>
-                          <p className="text-[10px] text-slate-400 break-words">Lead: {bu.buLead}</p>
+                          <p className="font-bold text-slate-900 text-xs break-words">{bu.businessUnit}</p>
+                          <p className="text-[11px] text-slate-600 font-medium break-words">Lead: {bu.buLead}</p>
                         </td>
                         <td className="py-2.5 text-center break-words">
                           <span className={`px-2 py-0.5 rounded text-[11px] font-bold ${
-                            bu.securityScore >= 85 ? 'bg-emerald-50 text-emerald-700' : 
-                            bu.securityScore >= 75 ? 'bg-amber-50 text-amber-700' : 'bg-rose-50 text-rose-700'
+                            bu.securityScore >= 85 ? 'bg-emerald-50 text-emerald-800 border border-emerald-200/80' : 
+                            bu.securityScore >= 75 ? 'bg-amber-50 text-amber-800 border border-amber-200/80' : 'bg-rose-50 text-rose-800 border border-rose-200/80'
                           }`}>
                             {bu.securityScore}
                           </span>
                         </td>
-                        <td className="py-2.5 text-center font-semibold text-slate-700 text-xs break-words">{bu.mttrDays}d</td>
-                        <td className="py-2.5 text-center font-semibold text-slate-700 text-xs break-words">{bu.slaComplianceRate}%</td>
-                        <td className="py-2.5 text-right font-bold text-rose-600 text-xs break-words">{bu.openAuditCount}</td>
+                        <td className="py-2.5 text-center font-bold text-slate-800 text-xs break-words">{bu.mttrDays}d</td>
+                        <td className="py-2.5 text-center font-bold text-slate-800 text-xs break-words">{bu.slaComplianceRate}%</td>
+                        <td className="py-2.5 text-right font-black text-rose-600 text-xs break-words">{bu.openAuditCount}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -448,31 +452,31 @@ export default function App() {
             </div>
 
             {/* Critical Incident Feed (Compact) */}
-            <div className="col-span-12 lg:col-span-4 bg-white border border-slate-200/90 rounded-xl p-3.5 shadow-2xs flex flex-col justify-between">
+            <div className="col-span-12 lg:col-span-4 bg-white border border-slate-200/90 rounded-xl p-4 shadow-2xs flex flex-col justify-between">
               <div>
                 <div className="flex justify-between items-center mb-3">
                   <div className="flex items-center gap-1.5">
                     <Radio className="w-3.5 h-3.5 text-rose-600 animate-pulse" />
                     <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider">Live Telemetry Incident Feed</h3>
                   </div>
-                  <span className="text-[10px] text-slate-400 font-mono">Stream Active</span>
+                  <span className="text-[10px] font-bold text-slate-500 font-mono bg-slate-100 px-1.5 py-0.5 rounded">STREAM ACTIVE</span>
                 </div>
                 <div className="space-y-2.5">
                   {INITIAL_INCIDENTS.slice(0, 3).map(inc => (
-                    <div key={inc.id} className="p-2.5 bg-slate-50 rounded-lg border border-slate-100 space-y-1">
+                    <div key={inc.id} className="p-2.5 bg-slate-50/80 rounded-lg border border-slate-200/80 space-y-1">
                       <div className="flex justify-between items-start">
-                        <span className="text-xs font-bold text-slate-900 leading-tight">{inc.title}</span>
-                        <span className={`text-[9px] font-bold px-1.5 py-0.2 rounded ${
-                          inc.severity === 'Critical' ? 'bg-rose-100 text-rose-700' : 
-                          inc.severity === 'High' ? 'bg-amber-100 text-amber-700' : 'bg-slate-200 text-slate-700'
+                        <span className="text-xs font-bold text-slate-900 leading-snug">{inc.title}</span>
+                        <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${
+                          inc.severity === 'Critical' ? 'bg-rose-100 text-rose-800 border border-rose-200' : 
+                          inc.severity === 'High' ? 'bg-amber-100 text-amber-800 border border-amber-200' : 'bg-slate-200 text-slate-800'
                         }`}>
                           {inc.severity}
                         </span>
                       </div>
-                      <p className="text-[11px] text-slate-600 leading-tight">{inc.summary}</p>
-                      <div className="flex justify-between items-center pt-1 border-t border-slate-200/60 text-[10px] text-slate-400">
+                      <p className="text-xs text-slate-700 leading-snug">{inc.summary}</p>
+                      <div className="flex justify-between items-center pt-1.5 border-t border-slate-200 text-[11px] text-slate-600 font-medium">
                         <span>{inc.businessUnit}</span>
-                        <span className="font-semibold text-indigo-600">{inc.timeAgo}</span>
+                        <span className="font-bold text-indigo-700">{inc.timeAgo}</span>
                       </div>
                     </div>
                   ))}
@@ -535,11 +539,11 @@ export default function App() {
 
       case 'audit':
         return (
-          <div className="col-span-12 bg-white border border-slate-200/90 rounded-xl p-3.5 shadow-2xs space-y-3">
+          <div className="col-span-12 bg-white border border-slate-200/90 rounded-xl p-4 shadow-2xs space-y-3">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-3">
               <div>
                 <h2 className="text-base font-black text-slate-900">Audit & Compliance Findings</h2>
-                <p className="text-xs text-slate-500">Manage internal and external audit observations (SOX, ISO 27001, PCI-DSS, SOC 2).</p>
+                <p className="text-xs text-slate-600">Manage internal and external audit observations (SOX, ISO 27001, PCI-DSS, SOC 2).</p>
               </div>
               <div className="flex items-center gap-2 flex-wrap">
                 <div className="relative w-48">
@@ -549,13 +553,13 @@ export default function App() {
                     placeholder="Search findings..." 
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-7 pr-2 py-1 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 w-full"
+                    className="pl-7 pr-2 py-1 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-indigo-500 w-full text-slate-800"
                   />
                 </div>
                 <select 
                   value={severityFilter} 
                   onChange={(e) => setSeverityFilter(e.target.value)}
-                  className="px-2 py-1 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none font-medium"
+                  className="px-2 py-1 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none font-semibold text-slate-800"
                 >
                   <option value="ALL">All Severities</option>
                   <option value="Critical">Critical</option>
@@ -573,11 +577,11 @@ export default function App() {
 
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs table-auto">
-                <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 font-bold uppercase text-[10px] tracking-wider">
+                <thead className="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold uppercase text-[11px] tracking-wider">
                   <tr>
                     <th 
                       onClick={() => handleAuditSort('title')}
-                      className="py-2 px-3 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                      className="py-2.5 px-3 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
                       title="Sort by ID or Title"
                     >
                       <div className="flex items-center gap-1">
@@ -587,7 +591,7 @@ export default function App() {
                     </th>
                     <th 
                       onClick={() => handleAuditSort('framework')}
-                      className="py-2 px-2.5 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                      className="py-2.5 px-2.5 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
                       title="Sort by Compliance Framework"
                     >
                       <div className="flex items-center gap-1">
@@ -597,7 +601,7 @@ export default function App() {
                     </th>
                     <th 
                       onClick={() => handleAuditSort('severity')}
-                      className="py-2 px-2.5 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                      className="py-2.5 px-2.5 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
                       title="Sort by Finding Severity"
                     >
                       <div className="flex items-center gap-1">
@@ -607,7 +611,7 @@ export default function App() {
                     </th>
                     <th 
                       onClick={() => handleAuditSort('businessUnit')}
-                      className="py-2 px-2.5 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                      className="py-2.5 px-2.5 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
                       title="Sort by Business Unit & Lead"
                     >
                       <div className="flex items-center gap-1">
@@ -617,7 +621,7 @@ export default function App() {
                     </th>
                     <th 
                       onClick={() => handleAuditSort('targetDate')}
-                      className="py-2 px-2.5 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                      className="py-2.5 px-2.5 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
                       title="Sort by Target SLA Date"
                     >
                       <div className="flex items-center gap-1">
@@ -627,7 +631,7 @@ export default function App() {
                     </th>
                     <th 
                       onClick={() => handleAuditSort('status')}
-                      className="py-2 px-2.5 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                      className="py-2.5 px-2.5 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
                       title="Sort by Status"
                     >
                       <div className="flex items-center gap-1">
@@ -635,37 +639,37 @@ export default function App() {
                         {renderSortIcon(auditSortField === 'status', auditSortOrder)}
                       </div>
                     </th>
-                    <th className="py-2 px-2.5 text-right break-words">Actions</th>
+                    <th className="py-2.5 px-2.5 text-right break-words">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
                   {sortedAuditIssues.map(item => (
                     <tr key={item.id} className="hover:bg-slate-50/70 transition">
                       <td className="py-2.5 px-3 max-w-sm break-words">
-                        <span className="font-mono text-[10px] text-indigo-600 font-bold break-all">{item.id}</span>
+                        <span className="font-mono text-[11px] text-indigo-700 font-bold break-all">{item.id}</span>
                         <p className="font-bold text-slate-900 text-xs mt-0.5 break-words">{item.title}</p>
-                        <p className="text-[11px] text-slate-500 break-words mt-0.5 whitespace-normal">{item.description}</p>
+                        <p className="text-xs text-slate-600 break-words mt-0.5 whitespace-normal leading-snug">{item.description}</p>
                       </td>
                       <td className="py-2.5 px-2.5 break-words">
-                        <span className="px-2 py-0.5 bg-slate-100 rounded text-[11px] font-semibold text-slate-700 inline-block break-words">{item.framework}</span>
+                        <span className="px-2 py-0.5 bg-slate-100 rounded text-[11px] font-bold text-slate-800 inline-block break-words border border-slate-200">{item.framework}</span>
                       </td>
                       <td className="py-2.5 px-2.5 break-words">
                         <span className={`px-2 py-0.5 rounded text-[10px] font-bold inline-block ${
-                          item.severity === 'Critical' ? 'bg-rose-100 text-rose-700' : 
-                          item.severity === 'High' ? 'bg-amber-100 text-amber-700' : 'bg-slate-100 text-slate-700'
+                          item.severity === 'Critical' ? 'bg-rose-100 text-rose-800 border border-rose-200' : 
+                          item.severity === 'High' ? 'bg-amber-100 text-amber-800 border border-amber-200' : 'bg-slate-100 text-slate-800 border border-slate-200'
                         }`}>
                           {item.severity}
                         </span>
                       </td>
                       <td className="py-2.5 px-2.5 break-words">
-                        <p className="font-medium text-slate-800 text-xs break-words">{item.businessUnit}</p>
-                        <p className="text-[10px] text-slate-400 break-words">Auditor: {item.leadAuditor}</p>
+                        <p className="font-bold text-slate-900 text-xs break-words">{item.businessUnit}</p>
+                        <p className="text-[11px] text-slate-600 font-medium break-words">Auditor: {item.leadAuditor}</p>
                       </td>
-                      <td className="py-2.5 px-2.5 text-xs font-semibold text-slate-600 break-words">{item.targetDate}</td>
+                      <td className="py-2.5 px-2.5 text-xs font-bold text-slate-800 break-words">{item.targetDate}</td>
                       <td className="py-2.5 px-2.5 break-words">
                         <span className={`px-2 py-0.5 rounded text-[10px] font-bold inline-block ${
-                          item.status === 'Overdue' ? 'bg-rose-50 text-rose-700' : 
-                          item.status === 'In Progress' ? 'bg-indigo-50 text-indigo-700' : 'bg-amber-50 text-amber-700'
+                          item.status === 'Overdue' ? 'bg-rose-50 text-rose-800 border border-rose-200' : 
+                          item.status === 'In Progress' ? 'bg-indigo-50 text-indigo-800 border border-indigo-200' : 'bg-amber-50 text-amber-800 border border-amber-200'
                         }`}>
                           {item.status}
                         </span>
@@ -673,7 +677,7 @@ export default function App() {
                       <td className="py-2.5 px-2.5 text-right">
                         <button 
                           onClick={() => handleDeleteAudit(item.id)}
-                          className="p-1 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded transition"
+                          className="p-1 text-slate-500 hover:text-rose-600 hover:bg-rose-50 rounded transition"
                           title="Delete Finding"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -689,11 +693,11 @@ export default function App() {
 
       case 'tech-debt':
         return (
-          <div className="col-span-12 bg-white border border-slate-200/90 rounded-xl p-3.5 shadow-2xs space-y-3">
+          <div className="col-span-12 bg-white border border-slate-200/90 rounded-xl p-4 shadow-2xs space-y-3">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-3">
               <div>
                 <h2 className="text-base font-black text-slate-900">Technology Debt & End-of-Life (EOL) Tracking</h2>
-                <p className="text-xs text-slate-500">Monitor unsupported operating systems, legacy databases, and modernization budgets.</p>
+                <p className="text-xs text-slate-600">Monitor unsupported operating systems, legacy databases, and modernization budgets.</p>
               </div>
               <button 
                 onClick={() => setShowAddDebtModal(true)}
@@ -705,11 +709,11 @@ export default function App() {
 
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs table-auto">
-                <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 font-bold uppercase text-[10px] tracking-wider">
+                <thead className="bg-slate-50 border-b border-slate-200 text-slate-700 font-bold uppercase text-[11px] tracking-wider">
                   <tr>
                     <th 
                       onClick={() => handleDebtSort('systemName')}
-                      className="py-2 px-3 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                      className="py-2.5 px-3 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
                       title="Sort by System / Asset Name"
                     >
                       <div className="flex items-center gap-1">
@@ -719,7 +723,7 @@ export default function App() {
                     </th>
                     <th 
                       onClick={() => handleDebtSort('category')}
-                      className="py-2 px-2.5 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                      className="py-2.5 px-2.5 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
                       title="Sort by Category"
                     >
                       <div className="flex items-center gap-1">
@@ -729,7 +733,7 @@ export default function App() {
                     </th>
                     <th 
                       onClick={() => handleDebtSort('businessUnit')}
-                      className="py-2 px-2.5 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                      className="py-2.5 px-2.5 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
                       title="Sort by Business Unit"
                     >
                       <div className="flex items-center gap-1">
@@ -739,7 +743,7 @@ export default function App() {
                     </th>
                     <th 
                       onClick={() => handleDebtSort('riskScore')}
-                      className="py-2 px-2.5 text-center break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                      className="py-2.5 px-2.5 text-center break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
                       title="Sort by Risk Score"
                     >
                       <div className="flex items-center justify-center gap-1">
@@ -749,7 +753,7 @@ export default function App() {
                     </th>
                     <th 
                       onClick={() => handleDebtSort('annualMaintenanceCost')}
-                      className="py-2 px-2.5 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                      className="py-2.5 px-2.5 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
                       title="Sort by Annual Maintenance Cost"
                     >
                       <div className="flex items-center gap-1">
@@ -759,7 +763,7 @@ export default function App() {
                     </th>
                     <th 
                       onClick={() => handleDebtSort('targetRetirementDate')}
-                      className="py-2 px-2.5 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
+                      className="py-2.5 px-2.5 break-words cursor-pointer hover:text-indigo-600 select-none group transition-colors"
                       title="Sort by Target Retirement Date"
                     >
                       <div className="flex items-center gap-1">
@@ -767,35 +771,35 @@ export default function App() {
                         {renderSortIcon(debtSortField === 'targetRetirementDate', debtSortOrder)}
                       </div>
                     </th>
-                    <th className="py-2 px-2.5 text-right break-words">Actions</th>
+                    <th className="py-2.5 px-2.5 text-right break-words">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
                   {sortedTechDebtItems.map(item => (
                     <tr key={item.id} className="hover:bg-slate-50/70 transition">
                       <td className="py-2.5 px-3 break-words">
-                        <span className="font-mono text-[10px] text-indigo-600 font-bold break-all">{item.id}</span>
+                        <span className="font-mono text-[11px] text-indigo-700 font-bold break-all">{item.id}</span>
                         <p className="font-bold text-slate-900 text-xs mt-0.5 break-words">{item.systemName}</p>
-                        <p className="text-[11px] text-slate-500 break-words mt-0.5 whitespace-normal">{item.replacementProject}</p>
+                        <p className="text-xs text-slate-600 break-words mt-0.5 whitespace-normal leading-snug">{item.replacementProject}</p>
                       </td>
                       <td className="py-2.5 px-2.5 break-words">
-                        <span className="px-2 py-0.5 bg-slate-100 rounded text-[11px] font-semibold text-slate-700 inline-block break-words">{item.category}</span>
+                        <span className="px-2 py-0.5 bg-slate-100 rounded text-[11px] font-bold text-slate-800 inline-block break-words border border-slate-200">{item.category}</span>
                       </td>
-                      <td className="py-2.5 px-2.5 font-medium text-slate-700 text-xs break-words">{item.businessUnit}</td>
+                      <td className="py-2.5 px-2.5 font-bold text-slate-800 text-xs break-words">{item.businessUnit}</td>
                       <td className="py-2.5 px-2.5 text-center break-words">
                         <span className={`px-2 py-0.5 rounded text-[10px] font-bold inline-block ${
-                          item.riskScore >= 90 ? 'bg-rose-100 text-rose-700' : 
-                          item.riskScore >= 75 ? 'bg-amber-100 text-amber-700' : 'bg-slate-100 text-slate-700'
+                          item.riskScore >= 90 ? 'bg-rose-100 text-rose-800 border border-rose-200' : 
+                          item.riskScore >= 75 ? 'bg-amber-100 text-amber-800 border border-amber-200' : 'bg-slate-100 text-slate-800 border border-slate-200'
                         }`}>
                           {item.riskScore}
                         </span>
                       </td>
-                      <td className="py-2.5 px-2.5 font-semibold text-slate-900 text-xs break-words">${item.annualMaintenanceCost.toLocaleString()}</td>
-                      <td className="py-2.5 px-2.5 text-xs font-semibold text-slate-600 break-words">{item.targetRetirementDate}</td>
+                      <td className="py-2.5 px-2.5 font-bold text-slate-900 text-xs break-words">${item.annualMaintenanceCost.toLocaleString()}</td>
+                      <td className="py-2.5 px-2.5 text-xs font-bold text-slate-800 break-words">{item.targetRetirementDate}</td>
                       <td className="py-2.5 px-2.5 text-right">
                         <button 
                           onClick={() => handleDeleteDebt(item.id)}
-                          className="p-1 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded transition"
+                          className="p-1 text-slate-500 hover:text-rose-600 hover:bg-rose-50 rounded transition"
                           title="Delete Tech Debt Record"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -1053,37 +1057,57 @@ export default function App() {
       <div className="flex flex-1 overflow-hidden">
         {/* Compact Sidebar */}
         <aside className="w-56 border-r border-slate-200 bg-white flex flex-col shrink-0">
-          <div className="p-3 border-b border-slate-100 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-black text-sm shadow-xs">C</div>
-              <div>
-                <span className="font-black text-xs tracking-tight text-slate-900 block">CYBERGUARD</span>
-                <span className="text-[9px] text-slate-400 font-medium">Enterprise GRC v4.2</span>
+          <div className="p-3 border-b border-slate-100 flex items-center justify-between bg-slate-50/60">
+            <div className="flex items-center gap-2.5 group cursor-pointer">
+              {/* High-Tech CyberGuard Emblem */}
+              <div className="relative w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-600 via-indigo-700 to-slate-950 p-0.5 shadow-md shadow-indigo-500/15 ring-1 ring-indigo-400/40 group-hover:scale-105 transition-transform duration-200">
+                <div className="w-full h-full rounded-[6px] bg-slate-950/40 flex items-center justify-center relative overflow-hidden backdrop-blur-2xs">
+                  {/* Subtle Matrix Micro-Grid */}
+                  <div className="absolute inset-0 bg-[linear-gradient(to_right,#818cf815_1px,transparent_1px),linear-gradient(to_bottom,#818cf815_1px,transparent_1px)] bg-[size:4px_4px]" />
+                  <ShieldCheck className="w-4 h-4 text-white relative z-10 drop-shadow-xs" />
+                  {/* Micro Live Telemetry Beacon */}
+                  <span className="absolute top-0.5 right-0.5 flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </span>
+                </div>
+              </div>
+
+              {/* Brand Typography & Status Badge */}
+              <div className="flex flex-col">
+                <div className="flex items-center gap-1">
+                  <span className="font-black text-xs tracking-tight text-slate-950 font-mono">CYBER<span className="text-indigo-600 font-extrabold">GUARD</span></span>
+                  <span className="bg-indigo-50 border border-indigo-200/80 text-indigo-700 text-[8px] font-extrabold px-1 rounded font-mono">PRO</span>
+                </div>
+                <div className="flex items-center gap-1 text-[10px] text-slate-600 font-medium">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span>
+                  <span className="tracking-tight text-slate-600 font-semibold">Enterprise GRC v4.2</span>
+                </div>
               </div>
             </div>
           </div>
 
           <nav className="flex-1 p-2 space-y-0.5 text-xs overflow-y-auto">
-            <div className="text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1 px-2">Executive Overview</div>
-            <button onClick={() => setActiveView('overview')} className={`flex w-full items-center gap-2 px-2.5 py-1.5 rounded-lg font-semibold transition ${activeView === 'overview' ? 'bg-indigo-50 text-indigo-700 shadow-2xs font-bold' : 'text-slate-600 hover:bg-slate-50'}`}>
+            <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1 px-2 pt-1">Executive Overview</div>
+            <button onClick={() => setActiveView('overview')} className={`flex w-full items-center gap-2 px-2.5 py-1.5 rounded-lg transition ${activeView === 'overview' ? 'bg-indigo-50 text-indigo-900 border border-indigo-200/60 shadow-2xs font-bold' : 'text-slate-700 font-medium hover:text-slate-950 hover:bg-slate-100'}`}>
               <LayoutDashboard className="w-3.5 h-3.5 text-indigo-600" /> <span>Dashboard Overview</span>
             </button>
-            <button onClick={() => setShowBoardroomModal(true)} className="flex w-full items-center gap-2 px-2.5 py-1.5 rounded-lg font-semibold transition text-slate-600 hover:bg-slate-50">
+            <button onClick={() => setShowBoardroomModal(true)} className="flex w-full items-center gap-2 px-2.5 py-1.5 rounded-lg transition text-slate-700 font-medium hover:text-slate-950 hover:bg-slate-100">
               <Presentation className="w-3.5 h-3.5 text-indigo-600" /> <span>Boardroom Briefing</span>
             </button>
-            <button onClick={() => setActiveView('kri-kar')} className={`flex w-full items-center gap-2 px-2.5 py-1.5 rounded-lg font-semibold transition ${activeView === 'kri-kar' ? 'bg-indigo-50 text-indigo-700 shadow-2xs font-bold' : 'text-slate-600 hover:bg-slate-50'}`}>
+            <button onClick={() => setActiveView('kri-kar')} className={`flex w-full items-center gap-2 px-2.5 py-1.5 rounded-lg transition ${activeView === 'kri-kar' ? 'bg-indigo-50 text-indigo-900 border border-indigo-200/60 shadow-2xs font-bold' : 'text-slate-700 font-medium hover:text-slate-950 hover:bg-slate-100'}`}>
               <Activity className="w-3.5 h-3.5 text-amber-600" /> <span>KRIs & KARs (FAIR)</span>
             </button>
 
-            <div className="pt-2 text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1 px-2">Operations & Telemetry</div>
-            <button onClick={() => setActiveView('tprm')} className={`flex w-full items-center gap-2 px-2.5 py-1.5 rounded-lg font-semibold transition ${activeView === 'tprm' ? 'bg-indigo-50 text-indigo-700 shadow-2xs font-bold' : 'text-slate-600 hover:bg-slate-50'}`}>
+            <div className="pt-2.5 text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1 px-2">Operations & Telemetry</div>
+            <button onClick={() => setActiveView('tprm')} className={`flex w-full items-center gap-2 px-2.5 py-1.5 rounded-lg transition ${activeView === 'tprm' ? 'bg-indigo-50 text-indigo-900 border border-indigo-200/60 shadow-2xs font-bold' : 'text-slate-700 font-medium hover:text-slate-950 hover:bg-slate-100'}`}>
               <Building2 className="w-3.5 h-3.5 text-indigo-600" /> <span>Third-Party Risk (TPRM)</span>
             </button>
-            <button onClick={() => setActiveView('siem-soar')} className={`flex w-full items-center gap-2 px-2.5 py-1.5 rounded-lg font-semibold transition ${activeView === 'siem-soar' ? 'bg-indigo-50 text-indigo-700 shadow-2xs font-bold' : 'text-slate-600 hover:bg-slate-50'}`}>
+            <button onClick={() => setActiveView('siem-soar')} className={`flex w-full items-center gap-2 px-2.5 py-1.5 rounded-lg transition ${activeView === 'siem-soar' ? 'bg-indigo-50 text-indigo-900 border border-indigo-200/60 shadow-2xs font-bold' : 'text-slate-700 font-medium hover:text-slate-950 hover:bg-slate-100'}`}>
               <Zap className="w-3.5 h-3.5 text-rose-600" /> <span>SIEM & SOAR Ops</span>
             </button>
 
-            <div className="pt-2 text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1 px-2">IAM, PAM & Zero Trust</div>
+            <div className="pt-2.5 text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1 px-2">IAM, PAM & Zero Trust</div>
             {[
               { id: 'iam', name: 'IAM & Privileged PAM', icon: KeyRound },
               { id: 'ztna', name: 'Zero Trust Access (ZTNA)', icon: ShieldCheck },
@@ -1094,15 +1118,15 @@ export default function App() {
               <button 
                 key={item.id} 
                 onClick={() => setActiveView(item.id)} 
-                className={`flex w-full items-center gap-2 px-2.5 py-1.5 rounded-lg font-semibold transition ${
-                  activeView === item.id ? 'bg-indigo-50 text-indigo-700 shadow-2xs font-bold' : 'text-slate-600 hover:bg-slate-50'
+                className={`flex w-full items-center gap-2 px-2.5 py-1.5 rounded-lg transition ${
+                  activeView === item.id ? 'bg-indigo-50 text-indigo-900 border border-indigo-200/60 shadow-2xs font-bold' : 'text-slate-700 font-medium hover:text-slate-950 hover:bg-slate-100'
                 }`}
               >
                 <item.icon className="w-3.5 h-3.5 text-indigo-600" /> <span className="truncate">{item.name}</span>
               </button>
             ))}
 
-            <div className="pt-2 text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1 px-2">Security Posture (ASP)</div>
+            <div className="pt-2.5 text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1 px-2">Security Posture (ASP)</div>
             {[
               { id: 'vam', name: 'Vulnerability (VAM)', icon: ScanEye },
               { id: 'cloud-sec', name: 'Cloud Security (CSPM)', icon: Cloud },
@@ -1118,22 +1142,22 @@ export default function App() {
               <button 
                 key={item.id} 
                 onClick={() => setActiveView(item.id)} 
-                className={`flex w-full items-center gap-2 px-2.5 py-1.5 rounded-lg font-semibold transition ${
-                  activeView === item.id ? 'bg-indigo-50 text-indigo-700 shadow-2xs font-bold' : 'text-slate-600 hover:bg-slate-50'
+                className={`flex w-full items-center gap-2 px-2.5 py-1.5 rounded-lg transition ${
+                  activeView === item.id ? 'bg-indigo-50 text-indigo-900 border border-indigo-200/60 shadow-2xs font-bold' : 'text-slate-700 font-medium hover:text-slate-950 hover:bg-slate-100'
                 }`}
               >
-                <item.icon className="w-3.5 h-3.5 text-slate-500" /> <span className="truncate">{item.name}</span>
+                <item.icon className="w-3.5 h-3.5 text-slate-600" /> <span className="truncate">{item.name}</span>
               </button>
             ))}
 
-            <div className="pt-2 text-[9px] font-bold text-slate-400 uppercase tracking-wider mb-1 px-2">GRC & Human Risk</div>
-            <button onClick={() => setActiveView('audit')} className={`flex w-full items-center gap-2 px-2.5 py-1.5 rounded-lg font-semibold transition ${activeView === 'audit' ? 'bg-indigo-50 text-indigo-700 shadow-2xs font-bold' : 'text-slate-600 hover:bg-slate-50'}`}>
+            <div className="pt-2.5 text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1 px-2">GRC & Human Risk</div>
+            <button onClick={() => setActiveView('audit')} className={`flex w-full items-center gap-2 px-2.5 py-1.5 rounded-lg transition ${activeView === 'audit' ? 'bg-indigo-50 text-indigo-900 border border-indigo-200/60 shadow-2xs font-bold' : 'text-slate-700 font-medium hover:text-slate-950 hover:bg-slate-100'}`}>
               <ShieldAlert className="w-3.5 h-3.5 text-rose-600" /> <span>Audit Issues ({auditIssues.length})</span>
             </button>
-            <button onClick={() => setActiveView('tech-debt')} className={`flex w-full items-center gap-2 px-2.5 py-1.5 rounded-lg font-semibold transition ${activeView === 'tech-debt' ? 'bg-indigo-50 text-indigo-700 shadow-2xs font-bold' : 'text-slate-600 hover:bg-slate-50'}`}>
+            <button onClick={() => setActiveView('tech-debt')} className={`flex w-full items-center gap-2 px-2.5 py-1.5 rounded-lg transition ${activeView === 'tech-debt' ? 'bg-indigo-50 text-indigo-900 border border-indigo-200/60 shadow-2xs font-bold' : 'text-slate-700 font-medium hover:text-slate-950 hover:bg-slate-100'}`}>
               <Database className="w-3.5 h-3.5 text-amber-600" /> <span>Tech Debt ({techDebtItems.length})</span>
             </button>
-            <button onClick={() => setActiveView('training')} className={`flex w-full items-center gap-2 px-2.5 py-1.5 rounded-lg font-semibold transition ${activeView === 'training' ? 'bg-indigo-50 text-indigo-700 shadow-2xs font-bold' : 'text-slate-600 hover:bg-slate-50'}`}>
+            <button onClick={() => setActiveView('training')} className={`flex w-full items-center gap-2 px-2.5 py-1.5 rounded-lg transition ${activeView === 'training' ? 'bg-indigo-50 text-indigo-900 border border-indigo-200/60 shadow-2xs font-bold' : 'text-slate-700 font-medium hover:text-slate-950 hover:bg-slate-100'}`}>
               <BookOpenText className="w-3.5 h-3.5 text-emerald-600" /> <span>Security Training</span>
             </button>
           </nav>
@@ -1144,7 +1168,7 @@ export default function App() {
           <header className="h-12 bg-white border-b border-slate-200 flex items-center justify-between px-4 shrink-0">
             <div>
               <h1 className="text-sm sm:text-base font-black text-slate-900">Global Security & Governance Control Center</h1>
-              <p className="text-[10px] text-slate-500 hidden sm:block">Real-time enterprise posture • Live telemetry from DefectDojo, Wiz, & Wazuh • Last Sync: 2m ago</p>
+              <p className="text-xs text-slate-600 hidden sm:block">Real-time enterprise posture • Live telemetry from DefectDojo, Wiz, & Wazuh • Last Sync: 2m ago</p>
             </div>
             <div className="flex items-center gap-2">
               <button 

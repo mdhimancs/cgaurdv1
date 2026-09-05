@@ -36,11 +36,21 @@ export function BoardroomModal({ isOpen, onClose, onNotify }: Props) {
         {/* Header */}
         <div className="px-8 py-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/60">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-sm">
-              C
+            <div className="relative w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-slate-950 p-0.5 shadow-md shadow-indigo-500/20 ring-1 ring-indigo-400/40">
+              <div className="w-full h-full rounded-[10px] bg-slate-950/40 flex items-center justify-center relative overflow-hidden backdrop-blur-2xs">
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#818cf815_1px,transparent_1px),linear-gradient(to_bottom,#818cf815_1px,transparent_1px)] bg-[size:4px_4px]" />
+                <ShieldCheck className="w-5 h-5 text-white relative z-10 drop-shadow-xs" />
+                <span className="absolute top-1 right-1 flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+              </div>
             </div>
             <div>
-              <h2 className="text-base font-black text-slate-900">Executive Boardroom & Risk Committee Briefing</h2>
+              <div className="flex items-center gap-2">
+                <h2 className="text-base font-black text-slate-900">Executive Boardroom & Risk Committee Briefing</h2>
+                <span className="bg-indigo-50 border border-indigo-200 text-indigo-700 text-[9px] font-bold px-1.5 py-0.5 rounded font-mono">CYBERGUARD</span>
+              </div>
               <p className="text-xs text-slate-500 font-medium">Q3 Cybersecurity Posture, GRC Compliance & Tech Debt Review</p>
             </div>
           </div>
@@ -161,7 +171,7 @@ export function BoardroomModal({ isOpen, onClose, onNotify }: Props) {
             </h4>
             <ul className="list-disc list-inside space-y-1.5 text-amber-900 text-xs">
               <li>
-                <strong>Approve $2.2M CapEx Modernization Budget:</strong> Mandatory retirement of the AS/400 Payments Gateway in Retail Banking before Q1 2025 regulatory filing.
+                <strong>Approve $2.2M CapEx Modernization Budget:</strong> Mandatory retirement of the AS/400 Payments Gateway in Retail Banking before Q1 2027 regulatory filing.
               </li>
               <li>
                 <strong>Authorize Mandatory JIT Access Enforcement:</strong> Enforce automated session revocation across all AWS/Azure root accounts, eliminating long-lived credentials.

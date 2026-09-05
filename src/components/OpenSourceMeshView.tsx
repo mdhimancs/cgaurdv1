@@ -150,7 +150,7 @@ const CONNECTORS_CONFIG: ConnectorStatus[] = [
 
 const INITIAL_OPEN_SOURCE_FINDINGS: OpenSourceFinding[] = [
   {
-    id: 'OSS-2024-001',
+    id: 'OSS-2026-001',
     advisoryCode: 'CVE-2024-41110',
     packageName: 'docker/docker-ce-cli',
     currentVersion: 'v24.0.5',
@@ -164,8 +164,8 @@ const INITIAL_OPEN_SOURCE_FINDINGS: OpenSourceFinding[] = [
     reachabilityStatus: 'Reachable in Production',
     licenseType: 'Apache-2.0',
     sourceConnector: 'DefectDojo & Grype',
-    identifiedDate: '2024-08-10',
-    targetDate: '2024-08-20',
+    identifiedDate: '2026-08-10',
+    targetDate: '2026-08-20',
     daysOpen: 14,
     timeSinceOpenText: '14 days (4d Overdue)',
     isOverdue: true,
@@ -177,7 +177,7 @@ const INITIAL_OPEN_SOURCE_FINDINGS: OpenSourceFinding[] = [
     vulnerabilityDescription: 'AuthZ bypass in Docker Engine allowing malicious containers to escalate privileges on host.'
   },
   {
-    id: 'OSS-2024-002',
+    id: 'OSS-2026-002',
     advisoryCode: 'CVE-2024-38816',
     packageName: 'org.springframework:spring-webmvc',
     currentVersion: 'v6.1.10',
@@ -191,8 +191,8 @@ const INITIAL_OPEN_SOURCE_FINDINGS: OpenSourceFinding[] = [
     reachabilityStatus: 'Reachable in Production',
     licenseType: 'Apache-2.0',
     sourceConnector: 'DefectDojo & Trivy',
-    identifiedDate: '2024-08-12',
-    targetDate: '2024-08-22',
+    identifiedDate: '2026-08-12',
+    targetDate: '2026-08-22',
     daysOpen: 12,
     timeSinceOpenText: '12 days (2d Overdue)',
     isOverdue: true,
@@ -204,7 +204,7 @@ const INITIAL_OPEN_SOURCE_FINDINGS: OpenSourceFinding[] = [
     vulnerabilityDescription: 'Path traversal vulnerability in Functional Web Framework allowing remote resource access.'
   },
   {
-    id: 'OSS-2024-003',
+    id: 'OSS-2026-003',
     advisoryCode: 'CVE-2024-21538',
     packageName: 'npm:cross-spawn',
     currentVersion: 'v7.0.3',
@@ -218,8 +218,8 @@ const INITIAL_OPEN_SOURCE_FINDINGS: OpenSourceFinding[] = [
     reachabilityStatus: 'Unreachable (Dead Code)',
     licenseType: 'MIT',
     sourceConnector: 'Syft & Grype Engine',
-    identifiedDate: '2024-08-15',
-    targetDate: '2024-08-29',
+    identifiedDate: '2026-08-15',
+    targetDate: '2026-08-29',
     daysOpen: 9,
     timeSinceOpenText: '9 days open',
     isOverdue: false,
@@ -231,7 +231,7 @@ const INITIAL_OPEN_SOURCE_FINDINGS: OpenSourceFinding[] = [
     vulnerabilityDescription: 'Regular Expression Denial of Service (ReDoS) during sub-process argument sanitization.'
   },
   {
-    id: 'OSS-2024-004',
+    id: 'OSS-2026-004',
     advisoryCode: 'CVE-2024-6387',
     packageName: 'openssh-server (regreSSHion)',
     currentVersion: 'v9.2p1',
@@ -245,8 +245,8 @@ const INITIAL_OPEN_SOURCE_FINDINGS: OpenSourceFinding[] = [
     reachabilityStatus: 'Reachable in Production',
     licenseType: 'BSD-2-Clause',
     sourceConnector: 'Wazuh XDR & OpenVAS',
-    identifiedDate: '2024-08-18',
-    targetDate: '2024-09-01',
+    identifiedDate: '2026-08-18',
+    targetDate: '2026-09-01',
     daysOpen: 6,
     timeSinceOpenText: '6 days open',
     isOverdue: false,
@@ -258,7 +258,7 @@ const INITIAL_OPEN_SOURCE_FINDINGS: OpenSourceFinding[] = [
     vulnerabilityDescription: 'Signal handler race condition in OpenSSH daemon leading to unauthenticated remote code execution.'
   },
   {
-    id: 'OSS-2024-005',
+    id: 'OSS-2026-005',
     advisoryCode: 'CVE-2024-34447',
     packageName: 'urllib3/urllib3',
     currentVersion: 'v2.0.7',
@@ -272,8 +272,8 @@ const INITIAL_OPEN_SOURCE_FINDINGS: OpenSourceFinding[] = [
     reachabilityStatus: 'Unreachable (Dead Code)',
     licenseType: 'MIT',
     sourceConnector: 'DefectDojo & Grype',
-    identifiedDate: '2024-08-20',
-    targetDate: '2024-09-10',
+    identifiedDate: '2026-08-20',
+    targetDate: '2026-09-10',
     daysOpen: 4,
     timeSinceOpenText: '4 days open',
     isOverdue: false,
@@ -331,7 +331,7 @@ const LICENSE_RISKS: LicenseRiskItem[] = [
 
 const SBOM_MANIFESTS: SbomManifestItem[] = [
   {
-    id: 'SBOM-2024-001',
+    id: 'SBOM-2026-001',
     serviceName: 'Clearing & Settlement Core',
     repository: 'github.com/bank-org/settlement',
     format: 'CycloneDX 1.5 JSON',
@@ -342,7 +342,7 @@ const SBOM_MANIFESTS: SbomManifestItem[] = [
     sha256Hash: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'
   },
   {
-    id: 'SBOM-2024-002',
+    id: 'SBOM-2026-002',
     serviceName: 'Retail Mobile Gateway API',
     repository: 'github.com/bank-org/retail-app',
     format: 'CycloneDX 1.5 JSON',
@@ -353,7 +353,7 @@ const SBOM_MANIFESTS: SbomManifestItem[] = [
     sha256Hash: 'a1b2c3d4e5f60718293a4b5c6d7e8f90123456789abcdef0123456789abcdef0'
   },
   {
-    id: 'SBOM-2024-003',
+    id: 'SBOM-2026-003',
     serviceName: 'Wealth Portfolio Engine',
     repository: 'github.com/bank-org/wealth-ui',
     format: 'SPDX 2.3',

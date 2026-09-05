@@ -55,8 +55,8 @@ const INITIAL_ATTACK_VECTORS: AttackVectorItem[] = [
       'Cross-Account AssumeRole via trust relationship',
       'Direct SQL write privileges on Settlement Ledger'
     ],
-    identifiedDate: '2024-08-10',
-    targetDate: '2024-08-20',
+    identifiedDate: '2026-08-10',
+    targetDate: '2026-08-20',
     daysOpen: 14,
     timeSinceOpenText: '14 days (4d Overdue)',
     isOverdue: true,
@@ -80,8 +80,8 @@ const INITIAL_ATTACK_VECTORS: AttackVectorItem[] = [
       'Domain Admin privilege escalation via BloodHound path',
       'Access to isolated SWIFT interbank payment gateway'
     ],
-    identifiedDate: '2024-08-16',
-    targetDate: '2024-08-30',
+    identifiedDate: '2026-08-16',
+    targetDate: '2026-08-30',
     daysOpen: 8,
     timeSinceOpenText: '8 days open',
     isOverdue: false,
@@ -104,8 +104,8 @@ const INITIAL_ATTACK_VECTORS: AttackVectorItem[] = [
       'Exfiltrates static AWS Kubeconfig token stored in runner',
       'Direct kubectl exec into production payment processing pods'
     ],
-    identifiedDate: '2024-08-18',
-    targetDate: '2024-09-02',
+    identifiedDate: '2026-08-18',
+    targetDate: '2026-09-02',
     daysOpen: 6,
     timeSinceOpenText: '6 days open',
     isOverdue: false,

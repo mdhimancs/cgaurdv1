@@ -104,6 +104,20 @@ export interface BUPerformance {
   trainingComplianceRate: number;
 }
 
+export interface HistoricalTrendPoint {
+  month: string;
+  monthShort: string;
+  securityScore: number;
+  securityScoreTarget: number;
+  auditClosureRate: number;
+  auditClosureTarget: number;
+  openAuditFindings: number;
+  closedAuditFindings: number;
+  newAuditFindings: number;
+  mttrDays: number;
+  milestone?: string;
+}
+
 export type ViewType = 
   | 'overview' 
   | 'audit' 
